@@ -38,3 +38,28 @@ jobs:
       - run: pnpm lint
       - run: pnpm check
       - run: pnpm build
+
+      # Only publish from main; PRs still build above but don't deploy.
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        with:
+          path: dist
+
+  # Publish the built site to GitHub Pages after a successful build on main.
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    # Don't cancel an in-flight deployment; let them queue instead.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
