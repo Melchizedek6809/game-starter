@@ -1,5 +1,5 @@
+import { type GameObjects, type Loader, Scene } from 'phaser';
 import options from '../../options';
-import { GameObjects, Scene } from 'phaser';
 
 export class LoadingScreenScene extends Scene {
     progressBar?: GameObjects.Graphics;
@@ -17,11 +17,10 @@ export class LoadingScreenScene extends Scene {
     }
 
     initLoadScreen() {
-        const that = this;
         this.progressBox = this.add.graphics();
         this.progressBox.setPosition(
             this.scale.width / 2 - 160,
-            this.scale.height / 2 - 32
+            this.scale.height / 2 - 32,
         );
         this.progressBox.fillStyle(0x081122, 0.8);
         this.progressBox.fillRoundedRect(0, 0, 320, 64, 8);
@@ -29,7 +28,7 @@ export class LoadingScreenScene extends Scene {
         this.progressBar = this.add.graphics();
         this.progressBar.setPosition(
             this.scale.width / 2 - 160,
-            this.scale.height / 2 - 32
+            this.scale.height / 2 - 32,
         );
 
         this.loadingText = this.add.text(
@@ -40,7 +39,7 @@ export class LoadingScreenScene extends Scene {
                 fontFamily: 'monospace',
                 fontSize: '20px',
                 color: '#ffffff',
-            }
+            },
         );
         this.loadingText.setOrigin(0.5, 0.5);
 
@@ -52,7 +51,7 @@ export class LoadingScreenScene extends Scene {
                 fontFamily: 'monospace',
                 fontSize: '20px',
                 color: '#ffffff',
-            }
+            },
         );
         this.progressText.setOrigin(0.5, 0.5);
 
@@ -64,30 +63,30 @@ export class LoadingScreenScene extends Scene {
                 fontFamily: 'monospace',
                 fontSize: '14px',
                 color: '#ffffff',
-            }
+            },
         );
         this.loadingFileText.setOrigin(0.5, 0.5);
 
         this.load.on('progress', (percentage_done: number) => {
-            if (that.progressBar) {
-                that.progressBar.clear();
-                that.progressBar.fillStyle(0x334488, 1);
-                that.progressBar.fillRoundedRect(
+            if (this.progressBar) {
+                this.progressBar.clear();
+                this.progressBar.fillStyle(0x334488, 1);
+                this.progressBar.fillRoundedRect(
                     8,
                     8,
                     304 * percentage_done,
                     48,
-                    8
+                    8,
                 );
-                that.progressText?.setText(((percentage_done * 100) | 0) + '%');
+                this.progressText?.setText(`${(percentage_done * 100) | 0}%`);
             }
         });
 
-        this.load.on('fileprogress', (file: any) => {
-            that.loadingFileText?.setText(`${file.src}`);
+        this.load.on('fileprogress', (file: Loader.File) => {
+            this.loadingFileText?.setText(`${file.src}`);
         });
         this.load.on('complete', () => {
-            that.dropLoadScreen();
+            this.dropLoadScreen();
         });
     }
 

@@ -1,8 +1,6 @@
-import options from '../../options';
-import { GameObjects, Scene } from 'phaser';
+import { type GameObjects, Scene } from 'phaser';
 
-import '../../types';
-import { UIScene } from '../ui/uiScene';
+import type { UIScene } from '../ui/uiScene';
 
 const animation_frames = (frame: string, frames: number | number[]) => {
     const ret = [];
@@ -52,7 +50,6 @@ export class GameScene extends Scene {
     }
 
     create() {
-        const that = this;
         this.score = 0;
         this.sound.pauseOnBlur = false;
 
@@ -83,8 +80,8 @@ export class GameScene extends Scene {
         ui.events.emit('reset');
 
         this.physics.world.setBounds(0, 0, 1280, 720);
-        this.keymap = this.input.keyboard.addKeys(
-            'Up,Left,Right,Down,X,Z,Shift,Y'
+        this.keymap = this.input.keyboard?.addKeys(
+            'Up,Left,Right,Down,X,Z,Shift,Y',
         ) as KeyMap;
         this.gameOverActive = false;
         this.gameTicks = 0;
@@ -107,14 +104,14 @@ export class GameScene extends Scene {
             this.renderer.width / 2,
             this.renderer.height / 2,
             'packed',
-            'player_0'
+            'player_0',
         );
         this.player.play('player_animated');
         this.player.setOrigin(0.6, 0.5);
         //this.cameras.main.startFollow(this.player, false, 0.1, 0.1, 0, 0);
     }
 
-    update(time: number, delta: number) {
+    update(_time: number, delta: number) {
         this.gameTicks += delta;
         if (this.player) {
             this.player.x += this.playerVelocity;

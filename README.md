@@ -3,7 +3,7 @@
 A simple starter template/example for PhaserJS and TypeScript.
 
 ## Requirements
-- Node JS (v18+) with NPM
+- Node JS (v24+) with PNPM
 
 ## Setup
 

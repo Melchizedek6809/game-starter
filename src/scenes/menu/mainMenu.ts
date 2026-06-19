@@ -1,12 +1,11 @@
-import options from '../../options';
 import { Scene } from 'phaser';
+import options from '../../options';
 
 const introHTML = `<h1>Vite / Phaser / TypeScript starter template</h1>
 <br/>
 <p>Something I've built for myself to jumpstart games developed for jams, feel free to use it howevery you want.</p>`;
 
-const gitHubLink =
-    'https://github.com/Melchizedek6809/vite-phaser-typescript-starter';
+const gitHubLink = 'https://github.com/Melchizedek6809/game-starter';
 const phaserLink = 'https://phaser.io/';
 
 export class MainMenuScene extends Scene {
@@ -43,7 +42,7 @@ export class MainMenuScene extends Scene {
         $intro.innerHTML = introHTML + buttons;
         this.add.dom(this.scale.width / 2, 96, $intro).setOrigin(0.5, 0);
         const $button = $intro.querySelector(
-            'button.green-button'
+            'button.green-button',
         ) as HTMLElement;
         if ($button) {
             $button.addEventListener('click', this.startGame.bind(this));
@@ -51,12 +50,11 @@ export class MainMenuScene extends Scene {
         }
     }
 
-    update(time: number, delta: number) {
-        const that = this;
-        if (this.input.gamepad.gamepads[0]) {
-            const gamepad = this.input.gamepad.gamepads[0];
+    update() {
+        if (this.input.gamepad?.gamepads[0]) {
+            const gamepad = this.input.gamepad?.gamepads[0];
             if (gamepad.A) {
-                that.startGame();
+                this.startGame();
             }
         }
     }

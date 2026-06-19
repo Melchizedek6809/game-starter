@@ -1,18 +1,18 @@
 import './style.css';
 import './game.css';
 
+import { Game, Scale, type Types, WEBGL } from 'phaser';
 import options from './options';
-import { Game, Types } from 'phaser';
 import { GameScene } from './scenes/game/gameScene';
-import { UIScene } from './scenes/ui/uiScene';
 import { GameOverScene } from './scenes/menu/gameOver';
-import { MainMenuScene } from './scenes/menu/mainMenu';
 import { GameWonScene } from './scenes/menu/gameWon';
 import { LoadingScreenScene } from './scenes/menu/loadingScreen';
+import { MainMenuScene } from './scenes/menu/mainMenu';
+import { UIScene } from './scenes/ui/uiScene';
 
 const main = () => {
     const config: Types.Core.GameConfig = {
-        type: Phaser.WEBGL,
+        type: WEBGL,
         width: 1280,
         height: 720,
         //pixelArt: true,
@@ -26,13 +26,13 @@ const main = () => {
             gamepad: true,
         },
         scale: {
-            mode: Phaser.Scale.FIT,
-            autoCenter: Phaser.Scale.CENTER_BOTH,
+            mode: Scale.FIT,
+            autoCenter: Scale.CENTER_BOTH,
         },
         physics: {
             default: 'arcade',
             arcade: {
-                gravity: { y: 0 },
+                gravity: { y: 0, x: 0 },
                 debug: options.showCollider,
             },
         },
@@ -45,6 +45,6 @@ const main = () => {
             GameWonScene,
         ],
     };
-    const game = new Game(config);
+    new Game(config);
 };
 setTimeout(main, 0);

@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { GameScene } from '../game/gameScene';
+import type { GameScene } from '../game/gameScene';
 
 export class GameOverScene extends Scene {
     gamepadWasUnpressed = false;
@@ -19,8 +19,7 @@ export class GameOverScene extends Scene {
     }
 
     create() {
-        const that = this;
-        const gs = that.scene.get('GameScene') as GameScene;
+        const gs = this.scene.get('GameScene') as GameScene;
         const score = gs.score;
         this.gamepadWasUnpressed = false;
 
@@ -33,18 +32,17 @@ export class GameOverScene extends Scene {
         this.add.dom(this.scale.width / 2, this.scale.height / 2, $dom);
 
         const $startOver = $dom.querySelector(
-            'button.red-button'
+            'button.red-button',
         ) as HTMLElement;
         $startOver.addEventListener('click', this.restartGame.bind(this));
         $startOver.focus();
     }
 
-    update(time: number, delta: number): void {
-        const that = this;
-        if (this.input.gamepad.gamepads[0]) {
-            const gamepad = this.input.gamepad.gamepads[0];
+    update(): void {
+        if (this.input.gamepad?.gamepads[0]) {
+            const gamepad = this.input.gamepad?.gamepads[0];
             if (gamepad.A && this.gamepadWasUnpressed) {
-                that.restartGame();
+                this.restartGame();
             } else {
                 this.gamepadWasUnpressed = true;
             }

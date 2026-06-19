@@ -20,23 +20,15 @@ export class Options {
         return def;
     }
 
-    private parseNumber(def: number, paramValue: string | null) {
-        if (paramValue === null) {
-            return def;
-        }
-        const v = parseInt(paramValue);
-        return v !== undefined ? v : def;
-    }
-
     constructor() {
         const params = new URLSearchParams(window.location.search);
         this.skipMenu = this.parseBoolean(
             this.skipMenu,
-            params.get('skipMenu')
+            params.get('skipMenu'),
         );
         this.showCollider = this.parseBoolean(
             this.showCollider,
-            params.get('showCollider')
+            params.get('showCollider'),
         );
         this.playBGM = this.parseBoolean(this.playBGM, params.get('playBGM'));
     }

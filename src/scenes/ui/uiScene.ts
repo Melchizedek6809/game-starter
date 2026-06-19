@@ -11,5 +11,5 @@ export class UIScene extends Scene {
 
     create() {}
 
-    update(time: number, delta: number) {}
+    update() {}
 }
