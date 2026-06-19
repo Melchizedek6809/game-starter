@@ -40,7 +40,7 @@ jobs:
       - run: pnpm build
 
       # Only publish from main; PRs still build above but don't deploy.
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           path: dist
@@ -62,4 +62,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
