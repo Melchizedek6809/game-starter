@@ -94,12 +94,14 @@ export class GameScene extends Scene {
 
         this.cameras.main.setBounds(0, 0, 1280, 720);
 
-        this.anims.create({
-            key: 'player_animated',
-            frames: animation_frames('player', [0, 1, 2, 1]),
-            frameRate: 6,
-            repeat: -1,
-        });
+        if (!this.anims.exists('player_animated')) {
+            this.anims.create({
+                key: 'player_animated',
+                frames: animation_frames('player', [0, 1, 2, 1]),
+                frameRate: 6,
+                repeat: -1,
+            });
+        }
         this.player = this.add.sprite(
             this.renderer.width / 2,
             this.renderer.height / 2,
